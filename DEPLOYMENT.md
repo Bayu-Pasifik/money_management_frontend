@@ -51,6 +51,35 @@ cPanel → **SSL/TLS Status** → centang domain/subdomain frontend → **Run Au
 
 Setiap kali ubah kode: `npm run build` ulang di laptop → upload ulang isi `dist/` (timpa yang lama) via File Manager/FTP. Tidak ada proses otomatis seperti Vercel — ini manual tiap kali update.
 
+### Kalau paket kamu ada Terminal DAN Node.js tersedia
+
+Karena backend kamu punya akses Terminal, cek juga apakah `node`/`npm` ada:
+
+```bash
+node -v
+npm -v
+```
+
+Kalau ada, bisa build langsung di server (tidak perlu upload manual):
+
+```bash
+cd ~
+git clone https://github.com/Bayu-Pasifik/money_management_frontend.git frontend_src
+cd frontend_src
+echo "VITE_API_BASE_URL=https://api.namadomain.com/api" > .env.production
+npm install
+npm run build
+cp -r dist/* ~/public_html/
+```
+
+Redeploy berikutnya tinggal:
+
+```bash
+cd ~/frontend_src && git pull origin main && npm install && npm run build && cp -r dist/* ~/public_html/
+```
+
+Kalau `node -v` tidak ketemu (banyak shared hosting cPanel memang tidak menyediakan Node di Terminal biasa, beda dengan fitur "Setup Node.js App"), pakai cara upload manual di langkah 1–3 di atas — itu tetap cara paling pasti jalan di semua paket.
+
 ---
 
 ## Opsi A: Vercel
