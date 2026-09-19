@@ -17,11 +17,14 @@
   justify-content: center;
   min-height: 100vh;
   padding: 24px;
-  background: var(--bg);
+  background:
+    radial-gradient(80vw 60vh at 15% -10%, rgba(255, 90, 54, 0.1), transparent 60%),
+    radial-gradient(70vw 50vh at 100% 110%, rgba(23, 20, 15, 0.06), transparent 60%),
+    var(--bg);
 }
 
 .auth-card {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 38px 34px 32px;
@@ -30,18 +33,19 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  box-shadow: 0 24px 60px rgba(23, 20, 15, 0.08);
+  box-shadow: var(--shadow-lg);
 }
 
 .auth-mark {
-  width: 38px;
-  height: 38px;
+  width: 42px;
+  height: 42px;
   border-radius: var(--radius-input);
-  background: var(--accent);
+  background: var(--gradient-accent);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-accent);
 }
 
 .auth-mark svg {
@@ -75,38 +79,42 @@ label {
 input,
 select {
   padding: 10px 12px;
-  background: var(--bg);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-input);
   color: var(--ink);
   font-size: 14.5px;
+  box-shadow: var(--inset-shadow);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 input:focus,
 select:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-soft);
+  box-shadow: var(--inset-shadow), 0 0 0 3px var(--accent-soft);
 }
 
 button[type="submit"] {
-  background: var(--accent);
+  background: var(--gradient-accent);
   color: #ffffff;
   border: none;
   border-radius: var(--radius-pill);
   padding: 12px 18px;
   font-weight: 600;
   font-size: 14.5px;
-  transition: background 0.15s ease, transform 0.1s ease;
+  box-shadow: var(--shadow-accent);
+  transition: box-shadow 0.18s ease, transform 0.12s ease;
   margin-top: 4px;
 }
 
 button[type="submit"]:hover {
-  background: var(--accent-deep);
+  box-shadow: 0 14px 30px rgba(255, 90, 54, 0.36), 0 3px 8px rgba(255, 90, 54, 0.26);
+  transform: translateY(-1px);
 }
 
 button[type="submit"]:active {
-  transform: scale(0.97);
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 4px 10px rgba(255, 90, 54, 0.3);
 }
 
 button[type="submit"]:disabled {
@@ -156,7 +164,7 @@ button[type="submit"]:disabled {
 }
 
 .spine {
-  background: var(--sidebar);
+  background: var(--gradient-sidebar);
   color: var(--ink-inverse);
   display: flex;
   flex-direction: column;
@@ -164,6 +172,8 @@ button[type="submit"]:disabled {
   position: sticky;
   top: 0;
   height: 100vh;
+  box-shadow: 4px 0 24px rgba(23, 20, 15, 0.18);
+  z-index: 2;
 }
 
 .spine-brand {
@@ -179,12 +189,13 @@ button[type="submit"]:disabled {
   width: 34px;
   height: 34px;
   border-radius: var(--radius-input);
-  background: var(--accent);
+  background: var(--gradient-accent);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: var(--shadow-accent);
 }
 
 .spine-mark svg {
@@ -223,8 +234,9 @@ button[type="submit"]:disabled {
   top: 0;
   width: 100%;
   height: 42px;
-  background: var(--accent);
+  background: var(--gradient-accent);
   border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-accent);
   transform: translateY(calc(var(--active-index) * 46px));
   transition: transform 0.32s cubic-bezier(0.65, 0, 0.35, 1);
   z-index: 0;
@@ -282,7 +294,7 @@ button[type="submit"]:disabled {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--gradient-accent);
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -291,6 +303,7 @@ button[type="submit"]:disabled {
   font-weight: 700;
   font-size: 14px;
   flex-shrink: 0;
+  box-shadow: var(--shadow-accent);
 }
 
 .spine-user-info {
@@ -378,13 +391,20 @@ button[type="submit"]:disabled {
 }
 
 .stat-card {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 20px 22px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.stat-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .stat-card span {
@@ -429,11 +449,12 @@ button[type="submit"]:disabled {
 }
 
 .chart-panel {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 18px 20px;
   margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
 }
 
 .chart-panel h3 {
@@ -530,10 +551,17 @@ button[type="submit"]:disabled {
 }
 
 .category-row {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 14px 16px;
+  box-shadow: var(--shadow-xs);
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.category-row:hover {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .category-row-header {
@@ -570,7 +598,7 @@ button[type="submit"]:disabled {
 .progress-fill {
   height: 100%;
   border-radius: var(--radius-pill);
-  background: var(--accent);
+  background: var(--gradient-accent);
   transition: width 0.4s ease;
 }
 
@@ -597,6 +625,12 @@ button[type="submit"]:disabled {
   font-family: var(--font-mono);
   color: var(--ink);
   font-variant-numeric: tabular-nums;
+}
+
+.account-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
 }
 
 .account-row {
@@ -633,15 +667,16 @@ button[type="submit"]:disabled {
 
 /* ---------- Forms & tables ---------- */
 .transaction-form {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
-  padding: 20px 22px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-bottom: 28px;
   max-width: 560px;
+  box-shadow: var(--shadow-md);
 }
 
 .transaction-form h3 {
@@ -670,10 +705,11 @@ button[type="submit"]:disabled {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .data-table thead th {
@@ -723,7 +759,7 @@ button[type="submit"]:disabled {
 
 /* ---------- Telegram ---------- */
 .telegram-steps {
-  background: var(--surface);
+  background: var(--gradient-surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-card);
   padding: 20px 22px 20px 20px;
@@ -732,6 +768,7 @@ button[type="submit"]:disabled {
   font-size: 14.5px;
   list-style: none;
   counter-reset: step;
+  box-shadow: var(--shadow-md);
 }
 
 .telegram-steps li {
@@ -750,13 +787,14 @@ button[type="submit"]:disabled {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent-deep);
+  background: var(--gradient-accent);
+  color: #ffffff;
   font-family: var(--font-mono);
   font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: var(--shadow-accent);
 }
 
 .telegram-steps code {
@@ -775,6 +813,32 @@ button[type="submit"]:disabled {
 
 .telegram-page .transaction-form {
   margin-top: 22px;
+}
+
+/* ---------- Two-column page layout (form + list, uses full width) ---------- */
+.page-split {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.page-form-col {
+  position: sticky;
+  top: 28px;
+}
+
+.page-form-col .transaction-form {
+  max-width: none;
+  margin-bottom: 0;
+}
+
+.page-list-col h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  margin: 0 0 12px;
 }
 
 /* ---------- Responsive ---------- */
@@ -831,5 +895,19 @@ button[type="submit"]:disabled {
 
   .form-row {
     flex-direction: column;
+  }
+
+  .page-split {
+    grid-template-columns: 1fr;
+  }
+
+  .page-form-col {
+    position: static;
+  }
+}
+
+@media (max-width: 1100px) {
+  .page-split {
+    grid-template-columns: 320px 1fr;
   }
 }

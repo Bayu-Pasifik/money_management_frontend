@@ -46,7 +46,8 @@ export function CategoriesPage() {
   if (loading) return <p>Memuat kategori...</p>;
 
   return (
-    <div className="categories-page">
+    <div className="categories-page page-split">
+      <div className="page-form-col">
       <form className="transaction-form" onSubmit={handleSubmit}>
         <h3>Tambah Kategori</h3>
 
@@ -74,7 +75,9 @@ export function CategoriesPage() {
 
         <button type="submit">Simpan</button>
       </form>
+      </div>
 
+      <div className="page-list-col">
       <h3>Daftar Kategori</h3>
       <table className="data-table">
         <thead>
@@ -101,6 +104,7 @@ export function CategoriesPage() {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

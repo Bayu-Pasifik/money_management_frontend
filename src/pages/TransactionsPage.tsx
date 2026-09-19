@@ -68,7 +68,8 @@ export function TransactionsPage() {
   if (loading) return <p>Memuat transaksi...</p>;
 
   return (
-    <div className="transactions-page">
+    <div className="transactions-page page-split">
+      <div className="page-form-col">
       <form className="transaction-form" onSubmit={handleSubmit}>
         <h3>Tambah Transaksi</h3>
 
@@ -124,7 +125,9 @@ export function TransactionsPage() {
 
         <button type="submit">Simpan</button>
       </form>
+      </div>
 
+      <div className="page-list-col">
       <h3>Riwayat Transaksi</h3>
       <table className="data-table">
         <thead>
@@ -159,6 +162,7 @@ export function TransactionsPage() {
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

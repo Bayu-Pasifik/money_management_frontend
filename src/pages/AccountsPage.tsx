@@ -59,7 +59,8 @@ export function AccountsPage() {
   const totalBalance = accounts.reduce((sum, a) => sum + a.balance, 0);
 
   return (
-    <div className="accounts-page">
+    <div className="accounts-page page-split">
+      <div className="page-form-col">
       <form className="transaction-form" onSubmit={handleSubmit}>
         <h3>Tambah Akun</h3>
 
@@ -99,14 +100,16 @@ export function AccountsPage() {
 
         <button type="submit">Simpan</button>
       </form>
+      </div>
 
+      <div className="page-list-col">
       <h3>Daftar Akun</h3>
       {accounts.length > 0 && (
         <p className="accounts-total">
           Total semua akun <strong>{formatRupiah(totalBalance)}</strong>
         </p>
       )}
-      <div className="category-list">
+      <div className="category-list account-grid">
         {accounts.map((a) => (
           <div key={a.id} className="category-row account-row">
             <div className="category-row-header">
@@ -120,6 +123,7 @@ export function AccountsPage() {
           </div>
         ))}
         {accounts.length === 0 && <p>Belum ada akun. Tambah dulu, misal Cash, BCA, atau BRI.</p>}
+      </div>
       </div>
     </div>
   );
