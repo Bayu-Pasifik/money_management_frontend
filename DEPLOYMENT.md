@@ -53,7 +53,9 @@ Setiap kali ubah kode: `npm run build` ulang di laptop → upload ulang isi `dis
 
 ### Kalau paket kamu ada Terminal DAN Node.js tersedia
 
-Karena backend kamu punya akses Terminal, cek juga apakah `node`/`npm` ada:
+> Sudah dicek: paket IDWebhost ini **tidak ada** `node`/`npm` di Terminal (`bash: node: command not found`). Jadi pakai jalur upload manual di langkah 1–3 di atas — bagian ini disimpan untuk referensi kalau suatu saat pindah ke hosting yang menyediakan Node.
+
+Cek apakah `node`/`npm` ada:
 
 ```bash
 node -v
