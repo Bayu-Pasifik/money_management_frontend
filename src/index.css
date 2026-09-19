@@ -77,6 +77,19 @@ select {
   color: inherit;
 }
 
+/* Native number spinners are square and clip past our rounded input
+   corners; use custom -/+ affordance-free plain numeric input instead. */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 ::selection {
   background: var(--accent-soft);
   color: var(--ink);
