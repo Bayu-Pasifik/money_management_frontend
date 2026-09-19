@@ -1,0 +1,87 @@
+:root {
+  color-scheme: light;
+
+  /* Monochrome + signal-orange accent */
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface-hover: #f2f0ec;
+  --border: rgba(20, 19, 17, 0.1);
+  --border-strong: rgba(20, 19, 17, 0.18);
+
+  --ink: #17140f;
+  --ink-inverse: #f5f3ee;
+  --ink-muted: #6b6558;
+  --ink-inverse-muted: #a39c8c;
+
+  --sidebar: #17140f;
+  --sidebar-hover: rgba(245, 243, 238, 0.07);
+  --sidebar-active: rgba(245, 243, 238, 0.1);
+
+  --accent: #ff5a36;
+  --accent-deep: #d83e1f;
+  --accent-soft: rgba(255, 90, 54, 0.14);
+
+  --positive: #1e8e5a;
+  --positive-soft: rgba(30, 142, 90, 0.13);
+
+  --negative: #c0264b;
+  --negative-soft: rgba(192, 38, 75, 0.12);
+
+  --font-display: "Space Grotesk", "Segoe UI", sans-serif;
+  --font-body: "Work Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Documented shape rule: cards/tables 14px, inputs 10px, buttons & active nav = pill */
+  --radius-input: 10px;
+  --radius-card: 14px;
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
