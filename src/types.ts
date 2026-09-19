@@ -69,6 +69,17 @@ export type Summary = {
   accounts: SummaryAccount[];
 };
 
+export type TrendPoint = {
+  month: string;
+  label: string;
+  income: number;
+  expense: number;
+};
+
+export type Trend = {
+  points: TrendPoint[];
+};
+
 export type TelegramLink = {
   id: number;
   chat_id: string;

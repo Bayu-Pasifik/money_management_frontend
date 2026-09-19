@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { apiRequest } from "../api/client";
-import type { Summary } from "../types";
+import type { Summary, Trend } from "../types";
+import { TrendChart } from "../components/TrendChart";
+import { CategoryBarChart } from "../components/CategoryBarChart";
+import { AccountBalanceChart } from "../components/AccountBalanceChart";
 
 function formatRupiah(value: number): string {
   return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(value);
@@ -8,11 +11,18 @@ function formatRupiah(value: number): string {
 
 export function DashboardPage() {
   const [summary, setSummary] = useState<Summary | null>(null);
+  const [trend, setTrend] = useState<Trend | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiRequest<Summary>("/summary")
-      .then(setSummary)
+    Promise.all([
+      apiRequest<Summary>("/summary"),
+      apiRequest<Trend>("/trend?months=6"),
+    ])
+      .then(([s, t]) => {
+        setSummary(s);
+        setTrend(t);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -38,17 +48,21 @@ export function DashboardPage() {
         </div>
       </div>
 
-      <h3>Saldo per Akun</h3>
-      {summary.accounts.length === 0 && <p>Belum ada akun. Tambah di menu Akun, misal Cash, BCA, atau BRI.</p>}
-      <div className="category-list" style={{ marginBottom: 28 }}>
-        {summary.accounts.map((a) => (
-          <div key={a.id} className="category-row">
-            <div className="category-row-header">
-              <span>{a.name}</span>
-              <span className={a.balance < 0 ? "negative-amount" : ""}>{formatRupiah(a.balance)}</span>
-            </div>
-          </div>
-        ))}
+      <div className="chart-panel">
+        <h3>Arus Kas 6 Bulan Terakhir</h3>
+        {trend && <TrendChart points={trend.points} />}
+      </div>
+
+      <div className="chart-grid">
+        <div className="chart-panel">
+          <h3>Pengeluaran Terbesar</h3>
+          <CategoryBarChart categories={summary.categories} />
+        </div>
+
+        <div className="chart-panel">
+          <h3>Saldo per Akun</h3>
+          <AccountBalanceChart accounts={summary.accounts} />
+        </div>
       </div>
 
       <h3>Budget per Kategori</h3>
