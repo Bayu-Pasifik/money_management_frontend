@@ -6,12 +6,54 @@ Panduan upload `money-management-frontend`. Ini aplikasi statis (hasil `npm run 
 
 | Opsi | Kecepatan setup | Biaya |
 |---|---|---|
+| **IDWebhost (cPanel)** ✅ dipakai sekarang | Upload manual, lihat "Opsi E" di bawah | Sudah punya |
 | **Vercel** | Tinggal connect repo GitHub, auto-deploy tiap push | Gratis untuk personal project |
 | **Netlify** | Sama gampangnya dengan Vercel | Gratis untuk personal project |
 | **Cloudflare Pages** | Sama, plus CDN cepat | Gratis |
-| **VPS / server sendiri** (Nginx) | Manual, tapi kalau backend juga di VPS yang sama, bisa satu domain | Sesuai biaya VPS |
 
-## Opsi A: Vercel (paling direkomendasikan)
+## Opsi E: IDWebhost (cPanel) — sesuai hosting kamu sekarang
+
+Frontend ini hasil build-nya cuma file statis (HTML/CSS/JS), jadi paling gampang dari semua opsi — tinggal upload ke `public_html`, tidak perlu Node.js jalan di server.
+
+### 1. Build di laptop, arahkan ke backend produksi
+
+Backend kamu di IDWebhost juga (lihat `DEPLOYMENT.md` repo backend) biasanya di subdomain, misal `api.namadomain.com`. Set itu sebagai target API sebelum build:
+
+```bash
+cd money-management-frontend
+echo "VITE_API_BASE_URL=https://api.namadomain.com/api" > .env.production
+npm install
+npm run build
+```
+
+Ini menghasilkan folder `dist/` isinya `index.html`, `assets/`, dll — inilah yang diupload, **bukan** folder project mentah.
+
+### 2. Tentukan lokasi upload
+
+- Kalau frontend jadi domain utama (`namadomain.com`) → upload isi `dist/` ke `public_html/` langsung.
+- Kalau frontend mau di subdomain (misal `app.namadomain.com`) sementara domain utama dipakai lain → cPanel **Domains → Subdomains**, buat subdomain dengan document root default (misal `app_namadomain_com` atau sesuai saran cPanel), lalu upload ke situ.
+
+### 3. Upload lewat File Manager
+
+1. Zip **isi dalam folder `dist/`** (bukan folder `dist` itu sendiri — supaya pas diekstrak, `index.html` langsung ada di root, bukan di dalam subfolder `dist/`).
+2. cPanel → **File Manager** → masuk ke `public_html` (atau folder subdomain tadi).
+3. Kalau upload ulang (redeploy), hapus dulu isi lama (`index.html`, folder `assets/` versi lama) supaya tidak numpuk file basi dengan hash beda.
+4. Upload zip → klik kanan → **Extract**.
+5. Pastikan struktur akhir: `public_html/index.html`, `public_html/assets/...` — bukan `public_html/dist/index.html`.
+
+Alternatif: pakai **FTP** (cPanel → **FTP Accounts** → buat akun FTP, connect pakai FileZilla) kalau lebih nyaman drag-and-drop daripada zip-extract.
+
+### 4. Aktifkan SSL
+
+cPanel → **SSL/TLS Status** → centang domain/subdomain frontend → **Run AutoSSL**. Tunggu sampai statusnya aktif, lalu akses selalu lewat `https://`.
+
+### 5. Redeploy saat ada perubahan kode
+
+Setiap kali ubah kode: `npm run build` ulang di laptop → upload ulang isi `dist/` (timpa yang lama) via File Manager/FTP. Tidak ada proses otomatis seperti Vercel — ini manual tiap kali update.
+
+---
+
+## Opsi A: Vercel
 
 1. Buka [vercel.com](https://vercel.com), login pakai GitHub.
 2. **Add New Project** → pilih repo `money_management_frontend`.
