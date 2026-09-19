@@ -50,6 +50,7 @@ export type SummaryCategory = {
   type: CategoryType;
   monthly_budget: string | null;
   spent: number;
+  amount: number;
   remaining: number | null;
 };
 

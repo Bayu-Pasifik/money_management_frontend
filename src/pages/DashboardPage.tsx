@@ -55,7 +55,7 @@ export function DashboardPage() {
 
       <div className="chart-grid">
         <div className="chart-panel">
-          <h3>Pengeluaran Terbesar</h3>
+          <h3>Per Kategori</h3>
           <CategoryBarChart categories={summary.categories} />
         </div>
 
